@@ -1,3 +1,7 @@
+package com.florist;
+
+import com.florist.products.Product;
+
 import java.util.*;
 
 public class Florist {
@@ -7,8 +11,8 @@ public class Florist {
 	private ArrayList<Product> stock;
 	//private ProductsFactory fabrica;
 
-	private Florist() {
-		name = "Floristeria";
+	private Florist(String name) {
+		this.name = name;
 		stock = new ArrayList<Product>();
 		//fabrica = new ProductsFactory();
 	}
@@ -17,9 +21,9 @@ public class Florist {
 		return name;
 	}
 
-	public static Florist getInstance() { // Singleton
+	public static Florist getInstance(String name) { // Singleton
 		if (instance == null) {
-			instance = new Florist();
+			instance = new Florist(name);
 		}
 		return instance;
 	}
@@ -39,7 +43,7 @@ public class Florist {
 	}
 
 	/*public void addItemToStock(String productType) {
-		Product newProduct = fabrica.getProduct(productType);
+		com.florist.products.Product newProduct = fabrica.getProduct(productType);
 		stock.add(newProduct);
 	}*/
 

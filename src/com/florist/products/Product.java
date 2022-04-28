@@ -1,3 +1,5 @@
+package com.florist.products;
+
 import java.io.Serializable;
 
 public abstract class Product implements Serializable{
@@ -9,7 +11,7 @@ public abstract class Product implements Serializable{
    	private static final long serialVersionUID = 1L;
 	protected float price;
 	
-		Product(float price){
+        Product(float price){
 			this.price=price;
 		}
 

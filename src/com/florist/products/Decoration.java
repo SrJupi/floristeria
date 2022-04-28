@@ -1,3 +1,4 @@
+package com.florist.products;
 
 public class Decoration extends Product {
 
