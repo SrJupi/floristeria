@@ -9,21 +9,17 @@ public class App_Mock {
 		florist.addItemStock("Tree");
 		florist.addItemStock("Tree");
 		florist.addItemStock("Tree");
-		florist.addItemStock("Flower");
-		florist.addItemStock("Flower");
 		florist.addItemStock("Decoration");
 		florist.addItemStock("Decoration");
-		System.out.println(florist.getName());
 		florist.getStock();
-		florist.getStockValue();
-		florist.getStock("flower");
-		florist.getStock("tree");
-		florist.getStock("decoration");
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~\n\n~~~~~~~~~~~~~~~~~~~\n\n");
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~\n\n~~~~~~~~~~~~~~~~~~~\n\n");
 
+		florist.deleteItemStock("flower");
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~\n\n~~~~~~~~~~~~~~~~~~~\n\n");
 
-
-
-
+		florist.getStock();
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~\n\n~~~~~~~~~~~~~~~~~~~\n\n");
 	}
 
 }
