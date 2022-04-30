@@ -14,7 +14,7 @@ public class SaveLoad {
     public static void saveFlorist(Florist serObj) {
 
         String actualDir = System.getProperty("user.dir");
-        String saveFilePath = actualDir + "\\" + serObj.getName() + ".flor";
+        String saveFilePath = actualDir + "\\" + serObj.getName() + ".txt";
         try {
             FileOutputStream fileOut = new FileOutputStream(saveFilePath);
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
@@ -25,12 +25,13 @@ public class SaveLoad {
         }
     }
 
-    public static void searchFlorist() {
+    public static Florist searchFlorist() {
 
         String actualDir = System.getProperty("user.dir");
         List<String> foundFiles = listFiles(Path.of(actualDir));
+        Florist tmp = null;
         if (foundFiles.size() == 1){
-            loadFlorist(foundFiles.get(0));
+            tmp = loadFlorist(foundFiles.get(0));
         }
         else if (foundFiles.size() > 1){
             int i = 0;
@@ -62,15 +63,16 @@ public class SaveLoad {
                 String files = foundFiles.get(i);
                 if (files.substring(files.lastIndexOf("\\") + 1, files.lastIndexOf("."))
                         .equals(input)){
-                    loadFlorist(foundFiles.get(i));
+                    tmp = loadFlorist(foundFiles.get(i));
                     notLoaded = false;
                 }
                 i++;
             }
         }
         else{
-            System.out.println("");
+            tmp = null;
         }
+        return tmp;
     }
 
     private static Florist loadFlorist(String file_path) {
@@ -91,7 +93,7 @@ public class SaveLoad {
         try (Stream<Path> filepath = Files.walk(path, 1)){
             return filepath.filter(s -> !Files.isDirectory(s))
                     .map(s -> s.toString())
-                    .filter(s -> s.contains(".flor"))
+                    .filter(s -> s.contains(".txt"))
                     .collect(Collectors.toList());
         }catch (IOException e) {
             System.out.println("Directory does not exist!");

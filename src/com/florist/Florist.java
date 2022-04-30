@@ -5,7 +5,7 @@ import com.florist.products.*;
 import java.io.Serializable;
 import java.util.*;
 
-public class Florist implements Serializable{
+public class Florist implements Serializable {
 
 	private static Florist instance;
 	private final String name;
@@ -28,37 +28,37 @@ public class Florist implements Serializable{
 		return stock;
 	}
 
-	public static Florist getInstance(String name) { // Singleton
+	public static Florist getInstance() { // Singleton
 		if (instance == null) {
-			instance = new Florist(name);
+			instance = new Florist("Flowers' house");
 		}
 		return instance;
 	}
 
 	public void addItemStock(String product) {
 		Product tmpProduct = fabrica.getProduct(product);
-		stockValue += tmpProduct.getPrice();
-		stock.add(tmpProduct);
+		if (tmpProduct != null){
+			stockValue += tmpProduct.getPrice();
+			stock.add(tmpProduct);
+		}
 	}
 
 	public void deleteItemStock(String product) {
 		Scanner sc = new Scanner(System.in);
 		List<Integer> infoStock = getStock(product);
-		if (!infoStock.isEmpty()){
+		if (!infoStock.isEmpty()) {
 			System.out.printf("Which %s do you want to remove? Select Id\n", product);
 			int i = sc.nextInt();
 			sc.nextLine();
-			if(infoStock.contains(i)){
+			if (infoStock.contains(i)) {
+				stockValue -= stock.get(i).getPrice();
 				stock.remove(i);
-			}
-			else {
+			} else {
 				System.out.println("Invalid item ID!");
 			}
-		}
-		else{
+		} else {
 			System.out.printf("There are no items of the %s type\n", product);
 		}
-
 	}
 
 	//print stock quantities for each category
@@ -82,12 +82,12 @@ public class Florist implements Serializable{
 	public List<Integer> getStock(String product) {
 		ArrayList<Integer> validID = new ArrayList<>();
 		System.out.printf("Current stock of %s:\n", product);
-		for (int i = 0; i < stock.size(); i++){
+		for (int i = 0; i < stock.size(); i++) {
 			Product p = stock.get(i);
 			if (p.getClass().getSimpleName().equalsIgnoreCase(product)) {
-				if(p instanceof Flower) System.out.print("Id: " + i + " - " + ((Flower) p).getColor());
-				if(p instanceof Decoration) System.out.print("Id: " + i + " - " + ((Decoration) p).getDeco());
-				if(p instanceof Tree) System.out.print("Id: " + i + " - " + ((Tree) p).getHeight());
+				if (p instanceof Flower) System.out.print("Id: " + i + " - " + ((Flower) p).getColor());
+				if (p instanceof Decoration) System.out.print("Id: " + i + " - " + ((Decoration) p).getDeco());
+				if (p instanceof Tree) System.out.print("Id: " + i + " - " + ((Tree) p).getHeight());
 				System.out.printf(" - price: $ %.2f\n", p.getPrice());
 				validID.add(i);
 			}
@@ -119,40 +119,4 @@ public class Florist implements Serializable{
 				System.out.print(((Tree) p).toString());
 		}
 	}
-
-	public List<Integer> getStock(String product) {
-		ArrayList<Integer> validID = new ArrayList<>();
-		System.out.printf("Current stock of %s:\n", product);
-		for (int i = 0; i < stock.size(); i++){
-			Product p = stock.get(i);
-			if (p.getClass().getSimpleName().equalsIgnoreCase(product)) {
-				if(p instanceof Flower) System.out.print("Id: " + i + " - " + ((Flower) p).getColor());
-				if(p instanceof Decoration) System.out.print("Id: " + i + " - " + ((Decoration) p).getDeco());
-				if(p instanceof Tree) System.out.print("Id: " + i + " - " + ((Tree) p).getHeight());
-				System.out.printf(" - price: $ %.2f\n", p.getPrice());
-				validID.add(i);
-			}
-		}
-		return validID;
-	}
-
-	public void deleteItemStock(String product) {
-		Scanner sc = new Scanner(System.in);
-		List<Integer> infoStock = getStock(product);
-		if (!infoStock.isEmpty()) {
-			System.out.printf("Which %s do you want to remove? Select Id\n", product);
-			int i = sc.nextInt();
-			sc.nextLine();
-			if (infoStock.contains(i)) {
-				stock.remove(i);
-				System.out.println("The product was removed succesfully.");
-			} else {
-				System.out.println("Invalid item ID!");
-			}
-		} else {
-			System.out.printf("There are no items of the %s type\n", product);
-		}
-
-	}
-
 }

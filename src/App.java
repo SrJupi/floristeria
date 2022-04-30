@@ -6,33 +6,44 @@ import com.florist.orders.Ticket;
 import com.florist.products.Product;
 import com.florist.save_load.SaveLoad;
 
+import static com.florist.save_load.SaveLoad.searchFlorist;
+
 public class App {
 
 	public static void main(String[] args) {
-		menu();
-
+		Florist f = startProgram();
+		if (f!= null){
+			menu(f);
+		}
 	}
 
-	static void menu() {
-		Florist f = Florist.getInstance();
+	private static Florist startProgram() {
+		System.out.println("Welcome to Flower App 2.0!\nPlease wait while we check you system...");
+		Florist tmp = searchFlorist();
+		if (tmp == null){
+			int option = askNum("It was not found any backup file for a florist. Do you want to create a new one?\n1 - Yes\n2 - No");
+			if (option == 1){
+				tmp = Florist.getInstance();
+			} else {
+				System.out.println("Sorry that we could not help you this time! See you soon!");
+			}
+		}
+		return tmp;
+	}
+
+	static void menu(Florist f) {
 		int option;
 		do {
 			option = askNum(
-					"Choose an option: \n1: Create flower shop. \n2: Add items. \n3: Check information about your stock. \n4: Delete items.\n5: Orders \n0: Exit");
+					"Choose an option: \n1: Add items. \n2: Check information about your stock. \n3: Delete items.\n4: Orders \n0: Exit");
 			switch (option) {
 
 			case 1:
-				Florist.getInstance();
-				System.out.println("The flower shop has been created successfully.");
-				SaveLoad.saveFlorist(f);
-				break;
-
-			case 2:
 				f.addItemStock(askWord("What item do you want to add? (Tree/Flower/Decoration)"));
 				SaveLoad.saveFlorist(f);
 				break;
 
-			case 3:
+			case 2:
 				int option1;
 				do {
 					option1 = askNum(
@@ -56,11 +67,11 @@ public class App {
 				} while (option1 != 0 || option1 < 0 && option1 > 3);
 				break;
 
-			case 4:
+			case 3:
 				f.deleteItemStock(askWord("What kind of product do you want to remove?"));
 				SaveLoad.saveFlorist(f);
 				break;
-			case 5:
+			case 4:
 				do {
 					option1 = askNum(
 							"Choose an option: \n1: Create a ticket. \n2: Show history of orders. \n3: Show total order's value \n0: Return to main menu");
