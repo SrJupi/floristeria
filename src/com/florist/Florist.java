@@ -1,5 +1,6 @@
 package com.florist;
 
+import com.florist.orders.Order;
 import com.florist.products.*;
 
 import java.io.Serializable;
@@ -12,12 +13,14 @@ public class Florist implements Serializable {
 	private ArrayList<Product> stock;
 	private ProductFactory fabrica;
 	private float stockValue;
+	private Order order;
 
 	private Florist(String name) {
 		this.name = name;
 		stock = new ArrayList<>();
 		stockValue = 0;
 		fabrica = new ProductFactory();
+		order = Order.getInstance();
 	}
 
 	public String getName() {
@@ -26,6 +29,10 @@ public class Florist implements Serializable {
 
 	public ArrayList<Product> getList() {
 		return stock;
+	}
+	
+	public Order getOrder() {
+		return order;
 	}
 
 	public static Florist getInstance() { // Singleton

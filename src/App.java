@@ -3,7 +3,6 @@ import java.util.Scanner;
 import com.florist.Florist;
 import com.florist.orders.Order;
 import com.florist.orders.Ticket;
-import com.florist.products.Product;
 import com.florist.save_load.SaveLoad;
 
 import static com.florist.save_load.SaveLoad.searchFlorist;
@@ -35,7 +34,7 @@ public class App {
 		int option;
 		do {
 			option = askNum(
-					"Choose an option: \n1: Add items. \n2: Check information about your stock. \n3: Delete items.\n4: Orders \n0: Exit");
+					"Choose an option: \n1: Add items. \n2: Check information about your stock. \n3: Delete items.\n4: Orders. \n0: Exit.");
 			switch (option) {
 
 			case 1:
@@ -73,11 +72,11 @@ public class App {
 				break;
 			case 4:
 				do {
+					Order o = Order.getInstance();
 					option1 = askNum(
 							"Choose an option: \n1: Create a ticket. \n2: Show history of orders. \n3: Show total order's value \n0: Return to main menu");
 					switch (option1) {
 					case 1:
-						Order o = Order.getInstance();
 						Ticket t = new Ticket();
 						int times = askNum("How many items do you want to purchase?");
 						for (int i = 1; i <= times; i++) {
@@ -88,11 +87,9 @@ public class App {
 						System.out.println("The ticket was created successfully.");
 						break;
 					case 2:
-						o = Order.getInstance();
 						o.history();
 						break;
 					case 3:
-						o = Order.getInstance();
 						o.moneyRaising();
 						break;
 					case 0:
@@ -124,9 +121,16 @@ public class App {
 	static int askNum(String mensaje) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println(mensaje);
-		int dato = sc.nextInt();
-		sc.nextLine();
+		int dato=5;
+		try {
+			dato= sc.nextInt();
+			sc.nextLine();
+			return dato;
+		}catch (Exception e) {
+			System.err.println("Please enter a number.");
 		return dato;
+		}
+		
 	}
 
 }
