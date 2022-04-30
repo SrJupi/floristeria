@@ -1,4 +1,6 @@
 package com.florist.orders;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,8 +8,12 @@ import java.util.Scanner;
 import com.florist.Florist;
 import com.florist.products.*;
 
-public class Ticket {
+public class Ticket implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Product> products;
 	private Florist florist;
 
@@ -43,7 +49,7 @@ public class Ticket {
 		}
 
 	}
-	
+
 	public void getPurchase() {
 		for (Product p : products) {
 			if (p instanceof Flower)
@@ -54,21 +60,13 @@ public class Ticket {
 				System.out.print(((Tree) p).toString());
 		}
 	}
-	
+
 	public float getPurchaseValue() {
 		float totalPurchase = 0;
 		for (Product p : products) {
 			totalPurchase += p.getPrice();
 		}
 		return totalPurchase;
-		//System.out.printf("Total stock value: %.2f%n", totalPurchase);
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }
