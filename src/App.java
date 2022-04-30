@@ -14,6 +14,7 @@ public class App {
 	}
 
 	static void menu() {
+		Florist f = Florist.getInstance();
 		int option;
 		do {
 			option = askNum(
@@ -21,13 +22,12 @@ public class App {
 			switch (option) {
 
 			case 1:
-				Florist f = Florist.getInstance();
+				Florist.getInstance();
 				System.out.println("The flower shop has been created successfully.");
 				SaveLoad.saveFlorist(f);
 				break;
 
 			case 2:
-				f = Florist.getInstance();
 				f.addItemStock(askWord("What item do you want to add? (Tree/Flower/Decoration)"));
 				SaveLoad.saveFlorist(f);
 				break;
@@ -38,16 +38,13 @@ public class App {
 					option1 = askNum(
 							"Choose an option: \n1: Show all products in stock. \n2: Show quantities of each product. \n3: Show total value \n0: Return to main menu");
 					switch (option1) {
-					case 1:
-						f = Florist.getInstance();
+					case 1:						
 						f.getTotalStock();
 						break;
 					case 2:
-						f = Florist.getInstance();
 						f.getStock();
 						break;
 					case 3:
-						f = Florist.getInstance();
 						f.getStockValue();
 						break;
 					case 0:
@@ -60,7 +57,6 @@ public class App {
 				break;
 
 			case 4:
-				f = Florist.getInstance();
 				f.deleteItemStock(askWord("What kind of product do you want to remove?"));
 				SaveLoad.saveFlorist(f);
 				break;
@@ -70,22 +66,26 @@ public class App {
 							"Choose an option: \n1: Create a ticket. \n2: Show history of orders. \n3: Show total order's value \n0: Return to main menu");
 					switch (option1) {
 					case 1:
-						Order o= Order.getInstance();
-						Ticket t=new Ticket();
-						int times=askNum("How many items do you want to purchase?");
-						for (int i=1;i<=times;i++) {
+						Order o = Order.getInstance();
+						Ticket t = new Ticket();
+						int times = askNum("How many items do you want to purchase?");
+						for (int i = 1; i <= times; i++) {
 							t.purchaseItem(askWord("What kind of product do you want to purchase?"));
-						}						
+						}
 						o.addTicket(t);
+						SaveLoad.saveFlorist(f);
 						System.out.println("The ticket was created successfully.");
 						break;
 					case 2:
-						o= Order.getInstance();
+						o = Order.getInstance();
 						o.history();
 						break;
 					case 3:
-						o= Order.getInstance();
-						o.moneyRaising();						
+						o = Order.getInstance();
+						o.moneyRaising();
+						break;
+					case 0:
+						System.out.println("Return");
 						break;
 					default:
 						System.out.println("The chosen option isn't correct");
