@@ -25,12 +25,12 @@ public class Tree extends Product {
 	}
 	
 	public String toString() {
-		return "\nTree:" + height + ", " + price + "€.\n";
+		return "Tree: " + height + "m, " + price + "€.";
 	}
 
 	@Override
 	public float setInitialPrice() {
-		return Math.round((23.33f * height * height + 12.5f) * 100.0f) / 100.0f;
+		return Math.round((23.33f * height * height + 12.5f) * 100.00f) / 100.00f;
 	}
 
 	private float setInitialHeight() {

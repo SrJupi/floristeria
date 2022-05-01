@@ -25,7 +25,7 @@ public class Flower extends Product {
 	}
 
 	public String toString() {
-		return "\nFlower:" + color + ", " + price + "€.\n";
+		return "Flower: " + color + ", " + price + "€.";
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class Flower extends Product {
 		while (value > 5) {
 			value /= 10f;
 		}
-		return value;
+		return Math.round(value * 100.00f) / 100.00f;
 	}
 
 	private String setInitialColor() {

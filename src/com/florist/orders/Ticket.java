@@ -39,6 +39,7 @@ public class Ticket implements Serializable {
 			sc.nextLine();
 			if (infoStock.contains(i)) {
 				products.add(florist.getList().get(i));
+				florist.setStockValue(-(florist.getList().get(i).getPrice()));
 				florist.getList().remove(i);
 				System.out.println("The product was purchased succesfully.");
 			} else {
@@ -51,14 +52,11 @@ public class Ticket implements Serializable {
 	}
 
 	public void getPurchase() {
+		int i = 0;
 		for (Product p : products) {
-			if (p instanceof Flower)
-				System.out.print(((Flower) p).toString());
-			if (p instanceof Decoration)
-				System.out.print(((Decoration) p).toString());
-			if (p instanceof Tree)
-				System.out.print(((Tree) p).toString());
+			System.out.printf("%02d - %s\n", ++i, p);
 		}
+		System.out.printf("Final Price: %.02f€\n", getPurchaseValue());
 	}
 
 	public float getPurchaseValue() {

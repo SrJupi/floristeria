@@ -30,7 +30,7 @@ public class Decoration extends Product {
 	}
 
 	public String toString() {
-		return "\nDecoration:" + deco + ", " + price + "€.\n";
+		return "Decoration: " + deco + ", " + price + "€.";
 	}
 
 	@Override

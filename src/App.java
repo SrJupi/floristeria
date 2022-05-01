@@ -20,8 +20,7 @@ public class App {
 		System.out.println("Welcome to Flower App 2.0!\nPlease wait while we check you system...");
 		Florist tmp = searchFlorist();
 		if (tmp == null) {
-			int option = askNum(
-					"It was not found any backup file for a florist. Do you want to create a new one?\n1 - Yes\n2 - No");
+			int option = askNum("It was not found any backup file for a florist. Do you want to create a new one?\n1 - Yes\n2 - No");
 			if (option == 1) {
 				tmp = Florist.getInstance();
 			} else {
@@ -50,13 +49,17 @@ public class App {
 							"Choose an option: \n1: Show all products in stock. \n2: Show quantities of each product. \n3: Show total value \n0: Return to main menu");
 					switch (option1) {
 					case 1:
-						f.getTotalStock();
+						if (f.getStockSize() > 0){
+							f.getTotalStock();
+						}else {
+							System.out.println("Stock is empty!");
+						}
 						break;
 					case 2:
 						f.getStock();
 						break;
 					case 3:
-						f.getStockValue();
+						System.out.printf("Total stock value: %.2f €\n", f.getStockValue());
 						break;
 					case 0:
 						System.out.println("Return");
@@ -64,12 +67,17 @@ public class App {
 					default:
 						System.out.println("The chosen option isn't correct");
 					}
-				} while (option1 != 0 || option1 < 0 && option1 > 3);
+				} while (option1 != 0);
 				break;
 
 			case 3:
-				f.deleteItemStock(askWord("What kind of product do you want to remove?"));
-				SaveLoad.saveFlorist(f);
+				if(f.getStockSize() > 0){
+					f.getStock();
+					f.deleteItemStock(askWord("What kind of product do you want to remove?"));
+					SaveLoad.saveFlorist(f);
+				}else {
+					System.out.println("Stock is empty!");
+				}
 				break;
 			case 4:
 				do {
@@ -78,14 +86,19 @@ public class App {
 							"Choose an option: \n1: Create a ticket. \n2: Show history of orders. \n3: Show total order's value \n0: Return to main menu");
 					switch (option1) {
 					case 1:
-						Ticket t = new Ticket();
-						int times = askNum("How many items do you want to purchase?");
-						for (int i = 1; i <= times; i++) {
-							t.purchaseItem(askWord("What kind of product do you want to purchase?"));
+						if (f.getStockSize() > 0){
+							Ticket t = new Ticket();
+							f.getStock();
+							int times = askNum("How many items do you want to purchase?");
+							for (int i = 1; i <= times; i++) {
+								t.purchaseItem(askWord("What kind of product do you want to purchase?"));
+							}
+							o.addTicket(t);
+							SaveLoad.saveFlorist(f);
+							System.out.println("The ticket was created successfully.");
+						} else {
+							System.out.println("Stock is empty!");
 						}
-						o.addTicket(t);
-						SaveLoad.saveFlorist(f);
-						System.out.println("The ticket was created successfully.");
 						break;
 					case 2:
 						o.history();
@@ -99,7 +112,7 @@ public class App {
 					default:
 						System.out.println("The chosen option isn't correct");
 					}
-				} while (option1 != 0 || option1 < 0 && option1 > 3);
+				} while (option1 != 0);
 				break;
 
 			case 0:
@@ -109,14 +122,13 @@ public class App {
 			default:
 				System.out.println("The chosen option isn't correct");
 			}
-		} while (option != 0 || option < 0 && option > 5);
+		} while (option != 0);
 	}
 
 	static String askWord(String message) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println(message);
-		String dato = sc.nextLine();
-		return dato;
+		return sc.nextLine();
 	}
 
 	static int askNum(String mensaje) {
@@ -126,12 +138,10 @@ public class App {
 		try {
 			dato = sc.nextInt();
 			sc.nextLine();
-			return dato;
 		} catch (Exception e) {
 			System.err.println("Please enter a number.");
-			return dato;
 		}
-
+		return dato;
 	}
 
 }

@@ -34,7 +34,7 @@ public class SaveLoad {
             tmp = loadFlorist(foundFiles.get(0));
         }
         else if (foundFiles.size() > 1){
-            int i = 0;
+            int i;
             Scanner sc = new Scanner(System.in);
             String input = null;
             System.out.println("It was found these florist archives:");
@@ -71,6 +71,9 @@ public class SaveLoad {
         }
         else{
             tmp = null;
+        }
+        if (tmp != null){
+            tmp.loadedFlorist();
         }
         return tmp;
     }

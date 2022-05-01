@@ -8,6 +8,7 @@ import java.util.*;
 
 public class Florist implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private static Florist instance;
 	private final String name;
 	private ArrayList<Product> stock;
@@ -42,6 +43,10 @@ public class Florist implements Serializable {
 		return instance;
 	}
 
+	public void loadedFlorist(){
+		instance = this;
+	}
+
 	public void addItemStock(String product) {
 		Product tmpProduct = fabrica.getProduct(product);
 		if (tmpProduct != null){
@@ -50,22 +55,33 @@ public class Florist implements Serializable {
 		}
 	}
 
+
+
 	public void deleteItemStock(String product) {
 		Scanner sc = new Scanner(System.in);
 		List<Integer> infoStock = getStock(product);
 		if (!infoStock.isEmpty()) {
 			System.out.printf("Which %s do you want to remove? Select Id\n", product);
-			int i = sc.nextInt();
-			sc.nextLine();
-			if (infoStock.contains(i)) {
-				stockValue -= stock.get(i).getPrice();
-				stock.remove(i);
-			} else {
-				System.out.println("Invalid item ID!");
+			try{
+				int i = sc.nextInt();
+				sc.nextLine();
+				if (infoStock.contains(i)) {
+					stockValue -= stock.get(i).getPrice();
+					stock.remove(i);
+				} else {
+					System.out.println("Invalid item ID!");
+				}
+			}
+			catch (Exception e){
+				System.out.println("Please insert a number!");
 			}
 		} else {
 			System.out.printf("There are no items of the %s type\n", product);
 		}
+	}
+
+	public int getStockSize(){
+		return stock.size();
 	}
 
 	//print stock quantities for each category
@@ -92,10 +108,7 @@ public class Florist implements Serializable {
 		for (int i = 0; i < stock.size(); i++) {
 			Product p = stock.get(i);
 			if (p.getClass().getSimpleName().equalsIgnoreCase(product)) {
-				if (p instanceof Flower) System.out.print("Id: " + i + " - " + ((Flower) p).getColor());
-				if (p instanceof Decoration) System.out.print("Id: " + i + " - " + ((Decoration) p).getDeco());
-				if (p instanceof Tree) System.out.print("Id: " + i + " - " + ((Tree) p).getHeight());
-				System.out.printf(" - price: $ %.2f\n", p.getPrice());
+				System.out.printf("Id: %d - %s\n", i, p);
 				validID.add(i);
 			}
 		}
@@ -105,6 +118,10 @@ public class Florist implements Serializable {
 	//return value of stock
 	public float getStockValue() {
 		return stockValue;
+	}
+
+	public void setStockValue(float value){
+		stockValue += value;
 	}
 
 	//calculate and return the value of a category stock
@@ -118,12 +135,7 @@ public class Florist implements Serializable {
 
 	public void getTotalStock() {
 		for (Product p : stock) {
-			if (p instanceof Flower)
-				System.out.print(((Flower) p).toString());
-			if (p instanceof Decoration)
-				System.out.print(((Decoration) p).toString());
-			if (p instanceof Tree)
-				System.out.print(((Tree) p).toString());
+			System.out.println(p);
 		}
 	}
 }

@@ -33,7 +33,9 @@ public class Order implements Serializable {
 	}
 
 	public void history() {
+		int i = 0;
 		for (Ticket t : tickets) {
+			System.out.printf("Ticket number %03d\n", ++i);
 			t.getPurchase();
 			System.out.println("---------");
 		}
@@ -44,7 +46,7 @@ public class Order implements Serializable {
 		for (Ticket t : tickets) {
 			totalMoney += t.getPurchaseValue();
 		}
-		System.out.printf("Total orders value: %.2f%n", totalMoney);
+		System.out.printf("Total orders value: %.2f€\n", totalMoney);
 	}
 
 }

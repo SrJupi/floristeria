@@ -16,9 +16,8 @@ public class ProductFactory implements Serializable {
 		} else if (productType.equalsIgnoreCase("Decoration")) {
 			return new Decoration();
 		}else {
-			System.out.println("The choosen option isn't correct. Please, try again.");
+			System.out.println("The chosen option isn't correct. Please, try again.");
 		}
-
 		return null;
 	}
 }
