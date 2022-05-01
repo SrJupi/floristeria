@@ -11,7 +11,7 @@ public class App {
 
 	public static void main(String[] args) {
 		Florist f = startProgram();
-		if (f!= null){
+		if (f != null) {
 			menu(f);
 		}
 	}
@@ -19,9 +19,10 @@ public class App {
 	private static Florist startProgram() {
 		System.out.println("Welcome to Flower App 2.0!\nPlease wait while we check you system...");
 		Florist tmp = searchFlorist();
-		if (tmp == null){
-			int option = askNum("It was not found any backup file for a florist. Do you want to create a new one?\n1 - Yes\n2 - No");
-			if (option == 1){
+		if (tmp == null) {
+			int option = askNum(
+					"It was not found any backup file for a florist. Do you want to create a new one?\n1 - Yes\n2 - No");
+			if (option == 1) {
 				tmp = Florist.getInstance();
 			} else {
 				System.out.println("Sorry that we could not help you this time! See you soon!");
@@ -48,7 +49,7 @@ public class App {
 					option1 = askNum(
 							"Choose an option: \n1: Show all products in stock. \n2: Show quantities of each product. \n3: Show total value \n0: Return to main menu");
 					switch (option1) {
-					case 1:						
+					case 1:
 						f.getTotalStock();
 						break;
 					case 2:
@@ -72,7 +73,7 @@ public class App {
 				break;
 			case 4:
 				do {
-					Order o = Order.getInstance();
+					Order o = f.getOrder();
 					option1 = askNum(
 							"Choose an option: \n1: Create a ticket. \n2: Show history of orders. \n3: Show total order's value \n0: Return to main menu");
 					switch (option1) {
@@ -121,16 +122,16 @@ public class App {
 	static int askNum(String mensaje) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println(mensaje);
-		int dato=5;
+		int dato = 5;
 		try {
-			dato= sc.nextInt();
+			dato = sc.nextInt();
 			sc.nextLine();
 			return dato;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.err.println("Please enter a number.");
-		return dato;
+			return dato;
 		}
-		
+
 	}
 
 }
