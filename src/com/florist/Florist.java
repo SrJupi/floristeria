@@ -69,7 +69,7 @@ public class Florist implements Serializable {
 					stockValue -= stock.get(i).getPrice();
 					stock.remove(i);
 				} else {
-					System.out.println("Invalid item ID!");
+					System.err.println("Invalid item ID!");
 				}
 			}
 			catch (Exception e){
