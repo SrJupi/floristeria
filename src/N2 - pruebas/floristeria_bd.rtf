@@ -5,7 +5,7 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww14200\viewh14460\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 #CREAMOS LA BASE DE DATOS FLORISTERIA\
+\f0\fs24 \cf0 \'a0#CREAMOS LA BASE DE DATOS FLORISTERIA\
 \
 CREATE DATABASE IF NOT EXISTS `floristeria` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;\
 USE `floristeria`;\
@@ -80,19 +80,23 @@ CREATE TABLE IF NOT EXISTS `decoration` (\
 CREATE TABLE IF NOT EXISTS `stock` (\
   `id_stock` int(8) NOT NULL AUTO_INCREMENT,\
   `fk_idproduct` int(6) NOT NULL,\
+ `fk_idfloristeria` int(4) NOT NULL,\
   `price` float(6,2) NOT NULL,\
   PRIMARY KEY (`id_stock`),\
   CONSTRAINT `fkproduct_stock`\
   FOREIGN KEY (`fk_idproduct`)\
-  REFERENCES product(id_product)\
+  REFERENCES product(id_product),\
+  CONSTRAINT `fk_idfloristeria`\
+  FOREIGN KEY (`fk_idfloristeria`)\
+  REFERENCES floristerias(`id_floristeria`)\
 ) ENGINE=InnoDB AUTO_INCREMENT=80000001 DEFAULT CHARSET=utf8mb4;\
 \
 ##ESTRUCTURA DE LA TABLA TICKET##\
 \
-DROP TABLE IF EXISTS `ticket`;\
+#DROP TABLE IF EXISTS `ticket`;\
 CREATE TABLE IF NOT EXISTS `ticket` (\
   `id_ticket` int(7) NOT NULL AUTO_INCREMENT,\
-  `fk_idfloristeria` int(6) NOT NULL,\
+  `fk_idfloristeria` int(4) NOT NULL,\
   `fk_idstock` int(6) NOT NULL,\
   `total_price` float(8,2) NOT NULL,\
   PRIMARY KEY (`id_ticket`),\
